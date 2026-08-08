@@ -1,0 +1,138 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Decorative Elements */
+.ornament-top {
+  position: fixed;
+  top: 20px;
+  right: 50px;
+  font-size: 40px;
+  opacity: 0.1;
+  z-index: -1;
+  animation: shine 3s ease-in-out infinite;
+}
+
+.ornament-bottom {
+  position: fixed;
+  bottom: 50px;
+  left: 50px;
+  font-size: 40px;
+  opacity: 0.1;
+  z-index: -1;
+  animation: shine 3s ease-in-out infinite 0.5s;
+}
+
+/* Button Styles */
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-saffron) 0%, var(--accent-gold) 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+}
+
+.btn-secondary {
+  background: var(--primary-green);
+  color: white;
+  box-shadow: 0 4px 15px rgba(19, 136, 8, 0.3);
+}
+
+.btn-secondary:hover {
+  background: #0f6005;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--primary-saffron);
+  border: 2px solid var(--primary-saffron);
+}
+
+.btn-outline:hover {
+  background: var(--primary-saffron);
+  color: white;
+}
+
+.btn-small {
+  padding: 8px 16px;
+  font-size: 14px;
+}
+
+/* Card Styles */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-left: 4px solid var(--accent-gold);
+}
+
+.card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+}
+
+/* Input Styles */
+input, textarea, select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  font-family: inherit;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-saffron);
+  box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 10px;
+  }
+  
+  .ornament-top {
+    font-size: 30px;
+    top: 10px;
+    right: 20px;
+  }
+  
+  .ornament-bottom {
+    font-size: 30px;
+    bottom: 30px;
+    left: 20px;
+  }
+}
