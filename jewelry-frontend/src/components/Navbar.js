@@ -1,84 +1,163 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ShoppingBag, User, Menu, X, Search, Sparkles, PhoneCall } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
 function Navbar({ cartCount, user, setUser }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     setUser(null);
+    localStorage.removeItem('user');
     setIsOpen(false);
   };
 
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/products?search=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery('');
+    }
+  };
+
   return (
-    <nav className="navbar">
-      {/* Indian Flag Colors Bar */}
-      <div className="flag-bar">
-        <div className="flag-saffron"></div>
-        <div className="flag-white"></div>
-        <div className="flag-green"></div>
+    <header className="royal-header">
+      {/* Top Royal Announcement Bar */}
+      <div className="top-announcement-bar">
+        <div className="royal-container announcement-content">
+          <div className="announcement-item left">
+            <Sparkles size={14} className="gold-text-icon" />
+            <span>100% BIS Hallmarked Gold & IGI Certified Solitaires</span>
+          </div>
+          <div className="announcement-item center">
+            <span>✨ Complimentary Insured Express Delivery Across India ✨</span>
+          </div>
+          <div className="announcement-item right">
+            <PhoneCall size={13} className="gold-text-icon" />
+            <span>Royal Concierge: 1800-RATNA-LOK</span>
+          </div>
+        </div>
       </div>
 
-      <div className="navbar-container">
-        {/* Logo */}
-        <Link to="/" className="logo">
-          <span className="logo-icon">💎</span>
-          <span className="logo-text">RATNALOK</span>
-          <span className="logo-tagline">आपका रत्न भंडार</span>
-        </Link>
-
-        {/* Desktop Menu */}
-        <div className={`nav-menu ${isOpen ? 'active' : ''}`}>
-          <Link to="/" className="nav-link" onClick={() => setIsOpen(false)}>
-            होम
-          </Link>
-          <Link to="/products" className="nav-link" onClick={() => setIsOpen(false)}>
-            आभूषण
-          </Link>
-          
-          {user ? (
-            <>
-              <Link to="/profile" className="nav-link" onClick={() => setIsOpen(false)}>
-                प्रोफाइल
-              </Link>
-              <button className="nav-link logout-btn" onClick={handleLogout}>
-                लॉग आउट
-              </button>
-            </>
-          ) : (
-            <>
-              <Link to="/login" className="nav-link" onClick={() => setIsOpen(false)}>
-                लॉग इन
-              </Link>
-              <Link to="/register" className="nav-link" onClick={() => setIsOpen(false)}>
-                रजिस्टर
-              </Link>
-            </>
-          )}
-        </div>
-
-        {/* Right Section */}
-        <div className="nav-right">
-          <Link to="/cart" className="cart-icon">
-            <ShoppingCart size={24} />
-            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
-          </Link>
-
-          {user && (
-            <div className="user-greeting">
-              <User size={20} />
-              <span>{user.email?.split('@')[0]}</span>
-            </div>
-          )}
-
-          {/* Mobile Menu Toggle */}
-          <button className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
+      {/* Main Navbar */}
+      <nav className="main-navbar">
+        <div className="royal-container navbar-wrapper">
+          {/* Mobile Menu Toggle Button */}
+          <button 
+            className="mobile-toggle-btn" 
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle Navigation Menu"
+          >
+            {isOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
+
+          {/* Luxury Brand Logo */}
+          <Link to="/" className="royal-brand">
+            <div className="brand-crest">
+              <div className="crest-emblem">✦</div>
+            </div>
+            <div className="brand-titles">
+              <span className="brand-name">RATNALOK</span>
+              <span className="brand-subtext">HAUTE JOAILLERIE • ESTD 1998</span>
+            </div>
+          </Link>
+
+          {/* Search Bar */}
+          <form className="navbar-search" onSubmit={handleSearchSubmit}>
+            <input 
+              type="text" 
+              placeholder="Search diamond rings, bridal haar, gold bangles..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button type="submit" aria-label="Search">
+              <Search size={18} />
+            </button>
+          </form>
+
+          {/* Desktop Navigation Links */}
+          <div className={`nav-menu-links ${isOpen ? 'open' : ''}`}>
+            <Link to="/" className="nav-item-link" onClick={() => setIsOpen(false)}>
+              HOME
+            </Link>
+            <Link to="/products" className="nav-item-link" onClick={() => setIsOpen(false)}>
+              ALL JEWELLERY
+            </Link>
+            <Link to="/products?category=necklace" className="nav-item-link" onClick={() => setIsOpen(false)}>
+              NECKLACES
+            </Link>
+            <Link to="/products?category=rings" className="nav-item-link" onClick={() => setIsOpen(false)}>
+              SOLITAIRES & RINGS
+            </Link>
+            <Link to="/products?category=bangles" className="nav-item-link" onClick={() => setIsOpen(false)}>
+              HERITAGE BANGLES
+            </Link>
+
+            {/* Mobile Auth Options */}
+            <div className="mobile-auth-section">
+              {user ? (
+                <>
+                  <Link to="/profile" className="nav-item-link" onClick={() => setIsOpen(false)}>
+                    MY PROFILE
+                  </Link>
+                  <button className="nav-item-link logout-btn" onClick={handleLogout}>
+                    LOGOUT
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" className="nav-item-link" onClick={() => setIsOpen(false)}>
+                    LOGIN
+                  </Link>
+                  <Link to="/register" className="nav-item-link highlight" onClick={() => setIsOpen(false)}>
+                    BECOME A VIP MEMBER
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Right Action Icons */}
+          <div className="navbar-actions">
+            {user ? (
+              <Link to="/profile" className="action-btn user-profile-btn" title="My Account">
+                <User size={20} />
+                <span className="user-name-display">{user.name || user.email?.split('@')[0]}</span>
+              </Link>
+            ) : (
+              <Link to="/login" className="action-btn" title="Sign In">
+                <User size={20} />
+                <span className="auth-action-text">SIGN IN</span>
+              </Link>
+            )}
+
+            {/* Shopping Bag / Cart */}
+            <Link to="/cart" className="action-btn cart-action-btn" title="Shopping Bag">
+              <div className="bag-icon-wrapper">
+                <ShoppingBag size={22} />
+                <AnimatePresence>
+                  {cartCount > 0 && (
+                    <motion.span 
+                      className="royal-cart-badge"
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0 }}
+                      transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                    >
+                      {cartCount}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+              <span className="cart-label">BAG</span>
+            </Link>
+          </div>
         </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   );
 }
 

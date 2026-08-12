@@ -1,10 +1,6 @@
 package com.jewellery.userservice.dto;
 
 import com.jewellery.userservice.entity.Role;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 public class UserDTO {
@@ -14,7 +10,9 @@ public class UserDTO {
     private Role role;
     private LocalDateTime createdAt;
 
-    public UserDTO() {}
+    public UserDTO() {
+    }
+
     public UserDTO(Long id, String name, String email, Role role, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
@@ -23,16 +21,45 @@ public class UserDTO {
         this.createdAt = createdAt;
     }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
-    public Role getRole() { return role; }
-    public void setRole(Role role) { this.role = role; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 
     // Manual Builder
     public static UserDTOBuilder builder() {
@@ -46,11 +73,31 @@ public class UserDTO {
         private Role role;
         private LocalDateTime createdAt;
 
-        public UserDTOBuilder id(Long id) { this.id = id; return this; }
-        public UserDTOBuilder name(String name) { this.name = name; return this; }
-        public UserDTOBuilder email(String email) { this.email = email; return this; }
-        public UserDTOBuilder role(Role role) { this.role = role; return this; }
-        public UserDTOBuilder createdAt(LocalDateTime createdAt) { this.createdAt = createdAt; return this; }
+        public UserDTOBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public UserDTOBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public UserDTOBuilder email(String email) {
+            this.email = email;
+            return this;
+        }
+
+        public UserDTOBuilder role(Role role) {
+            this.role = role;
+            return this;
+        }
+
+        public UserDTOBuilder createdAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+            return this;
+        }
+
         public UserDTO build() {
             return new UserDTO(id, name, email, role, createdAt);
         }

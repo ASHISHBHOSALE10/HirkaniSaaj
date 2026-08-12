@@ -1,138 +1,233 @@
+/* =========================================================
+   RATNALOK - APP LAYOUT & LUXURY COMPONENT UTILITIES
+   ========================================================= */
+
 .App {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+  background-color: var(--bg-royal-cream);
+  position: relative;
 }
 
 .main-content {
   flex: 1;
-  padding: 20px;
-  max-width: 1400px;
-  margin: 0 auto;
   width: 100%;
+  margin: 0 auto;
 }
 
-/* Decorative Elements */
-.ornament-top {
-  position: fixed;
-  top: 20px;
-  right: 50px;
-  font-size: 40px;
-  opacity: 0.1;
-  z-index: -1;
-  animation: shine 3s ease-in-out infinite;
+/* Container */
+.royal-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.ornament-bottom {
-  position: fixed;
-  bottom: 50px;
-  left: 50px;
-  font-size: 40px;
-  opacity: 0.1;
-  z-index: -1;
-  animation: shine 3s ease-in-out infinite 0.5s;
-}
-
-/* Button Styles */
+/* Royal Luxury Buttons */
 .btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: 4px;
+  font-family: var(--font-serif-royal);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  justify-content: center;
+  gap: 10px;
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.btn-primary {
-  background: linear-gradient(135deg, var(--primary-saffron) 0%, var(--accent-gold) 100%);
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+/* Primary Imperial Gold Button */
+.btn-primary, .btn-royal-gold {
+  background: var(--gold-gradient);
+  color: var(--royal-emerald-dark);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.btn-primary:hover {
+.btn-primary:hover, .btn-royal-gold:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+  filter: brightness(1.05);
 }
 
-.btn-secondary {
-  background: var(--primary-green);
-  color: white;
-  box-shadow: 0 4px 15px rgba(19, 136, 8, 0.3);
+/* Secondary Royal Emerald Button */
+.btn-secondary, .btn-royal-emerald {
+  background: var(--royal-emerald);
+  color: var(--royal-gold-light);
+  border: 1px solid var(--royal-gold);
+  box-shadow: 0 6px 20px rgba(11, 37, 28, 0.3);
 }
 
-.btn-secondary:hover {
-  background: #0f6005;
+.btn-secondary:hover, .btn-royal-emerald:hover {
+  background: var(--royal-emerald-light);
+  color: #FFFFFF;
   transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(11, 37, 28, 0.45);
 }
 
-.btn-outline {
+/* Royal Outline Button */
+.btn-outline, .btn-royal-outline {
   background: transparent;
-  color: var(--primary-saffron);
-  border: 2px solid var(--primary-saffron);
+  color: var(--royal-emerald);
+  border: 1.5px solid var(--royal-gold-dark);
 }
 
-.btn-outline:hover {
-  background: var(--primary-saffron);
-  color: white;
+.btn-outline:hover, .btn-royal-outline:hover {
+  background: var(--royal-emerald);
+  color: var(--royal-gold-light);
+  border-color: var(--royal-emerald);
+  transform: translateY(-2px);
+}
+
+.btn-outline-white {
+  background: transparent;
+  color: #FFFFFF;
+  border: 1.5px solid var(--royal-gold);
+}
+
+.btn-outline-white:hover {
+  background: var(--gold-gradient);
+  color: var(--royal-emerald-dark);
+  border-color: var(--royal-gold);
 }
 
 .btn-small {
-  padding: 8px 16px;
-  font-size: 14px;
+  padding: 8px 18px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
 }
 
-/* Card Styles */
-.card {
-  background: white;
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  border-left: 4px solid var(--accent-gold);
+.btn-large {
+  padding: 16px 36px;
+  font-size: 15px;
+  letter-spacing: 0.12em;
 }
 
-.card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  transform: translateY(-5px);
+.btn-block {
+  width: 100%;
 }
 
-/* Input Styles */
+/* Luxury Royal Section Headers */
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+  position: relative;
+}
+
+.section-subtitle {
+  font-family: var(--font-serif-editorial);
+  font-size: 1.2rem;
+  color: var(--royal-gold-dark);
+  font-style: italic;
+  display: block;
+  margin-bottom: 6px;
+  letter-spacing: 0.05em;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  font-family: var(--font-serif-royal);
+  color: var(--royal-emerald);
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 0 auto;
+}
+
+.section-divider .divider-line {
+  width: 60px;
+  height: 1.5px;
+  background: linear-gradient(90deg, transparent, var(--royal-gold));
+}
+
+.section-divider .divider-line.right {
+  background: linear-gradient(90deg, var(--royal-gold), transparent);
+}
+
+.section-divider .divider-diamond {
+  color: var(--royal-gold);
+  font-size: 16px;
+  animation: floatSmooth 3s ease-in-out infinite;
+}
+
+/* Luxury Hallmarking & Purity Badges */
+.badge-purity {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid var(--border-gold);
+  border-radius: 3px;
+  color: var(--royal-gold-dark);
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-serif-royal);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.badge-tag {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: var(--royal-emerald);
+  color: var(--royal-gold-light);
+  font-family: var(--font-serif-royal);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  border: 1px solid var(--royal-gold);
+  z-index: 2;
+  text-transform: uppercase;
+}
+
+/* Input Fields */
 input, textarea, select {
   width: 100%;
-  padding: 12px;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 0.3s ease;
-  font-family: inherit;
+  padding: 14px 16px;
+  background: #FFFFFF;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 4px;
+  font-size: 15px;
+  font-family: var(--font-sans);
+  color: var(--text-dark);
+  transition: all 0.3s ease;
 }
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  border-color: var(--primary-saffron);
-  box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+  border-color: var(--royal-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
 }
 
-/* Responsive */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .main-content {
-    padding: 10px;
+  .section-title {
+    font-size: 1.8rem;
   }
-  
-  .ornament-top {
-    font-size: 30px;
-    top: 10px;
-    right: 20px;
+  .section-subtitle {
+    font-size: 1rem;
   }
-  
-  .ornament-bottom {
-    font-size: 30px;
-    bottom: 30px;
-    left: 20px;
+  .btn {
+    padding: 12px 22px;
+    font-size: 13px;
   }
 }

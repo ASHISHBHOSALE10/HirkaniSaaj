@@ -1,4 +1,6 @@
-# Jewellery E-commerce Microservices
+# 💎 Ratnalok Jewelry E-commerce Microservices
+
+> **Note for Interviewers & Learners**: For a deep-dive explanation of the architecture, security (JWT), and detailed workflows, please see the [**PROJECT_DOCUMENTATION.md**](./PROJECT_DOCUMENTATION.md) file.
 
 This project is a complete Spring Boot 3 microservices platform for a jewellery e-commerce application.
 

@@ -1,121 +1,247 @@
-.footer {
-  background: linear-gradient(135deg, var(--text-dark) 0%, #2a2a2a 100%);
-  color: white;
-  margin-top: 60px;
-  padding-top: 60px;
+/* =========================================================
+   RATNALOK ROYAL FOOTER STYLES
+   ========================================================= */
+
+.royal-footer {
+  background: #061711;
+  color: #D1D5DB;
+  border-top: 2px solid var(--royal-gold);
+  position: relative;
 }
 
-.footer-content {
-  max-width: 1400px;
-  margin: 0 auto;
+/* Trust Bar */
+.footer-trust-bar {
+  background: #092018;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 30px 0;
+}
+
+.trust-bar-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 40px;
-  padding: 0 30px 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
 }
 
-.footer-section h3 {
-  font-size: 24px;
-  color: var(--accent-gold);
-  margin-bottom: 15px;
+.trust-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.trust-bar-item strong {
+  display: block;
+  font-family: var(--font-serif-royal);
+  font-size: 14px;
+  color: var(--royal-gold-light);
+  letter-spacing: 0.05em;
+}
+
+.trust-bar-item span {
+  font-size: 12px;
+  color: #9CA3AF;
+}
+
+/* Main Grid */
+.footer-main-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+  gap: 50px;
+  padding: 70px 0 50px;
+}
+
+.footer-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.footer-crest {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--royal-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--royal-gold);
+  font-size: 16px;
+}
+
+.footer-about-text {
+  font-size: 13px;
+  color: #9CA3AF;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.social-links-row {
+  display: flex;
+  gap: 12px;
+}
+
+.social-circle-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--royal-gold-light);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.social-circle-btn:hover {
+  background: var(--gold-gradient);
+  color: var(--royal-emerald-dark);
+  border-color: var(--royal-gold);
+  transform: translateY(-2px);
+}
+
+/* Headings & Links */
+.footer-heading {
+  font-family: var(--font-serif-royal);
+  font-size: 15px;
+  color: var(--royal-gold-light);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.footer-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 1.5px;
+  background: var(--royal-gold);
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links li a {
+  color: #9CA3AF;
+  text-decoration: none;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.footer-links li a:hover {
+  color: var(--royal-gold-light);
+  padding-left: 4px;
+}
+
+/* Newsletter & Contacts */
+.newsletter-p {
+  font-size: 13px;
+  color: #9CA3AF;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.newsletter-form input {
+  padding: 10px 14px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  color: #FFFFFF;
+  border-radius: 4px;
+}
+
+.newsletter-form input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.newsletter-success {
+  color: var(--royal-gold);
+  font-size: 12.5px;
+  margin-bottom: 14px;
+}
+
+.contact-quick-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 12.5px;
+  color: #9CA3AF;
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  padding-top: 16px;
+}
+
+.info-item {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.footer-section h4 {
-  font-size: 18px;
-  color: var(--primary-saffron);
-  margin-bottom: 15px;
+/* Bottom Bar */
+.footer-bottom-bar {
+  border-top: 1px solid rgba(212, 175, 55, 0.15);
+  padding: 20px 0;
+  font-size: 12px;
+  color: #6B7280;
 }
 
-.footer-section p {
-  color: #ccc;
-  line-height: 1.6;
-  font-style: italic;
-}
-
-.social-links {
+.bottom-bar-flex {
   display: flex;
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.social-links a {
-  width: 40px;
-  height: 40px;
-  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  background: rgba(255, 153, 51, 0.2);
-  border-radius: 50%;
-  color: var(--primary-saffron);
-  transition: all 0.3s ease;
 }
 
-.social-links a:hover {
-  background: var(--primary-saffron);
-  color: white;
-  transform: translateY(-3px);
-}
-
-.footer-section ul {
-  list-style: none;
-}
-
-.footer-section ul li {
-  margin-bottom: 12px;
-}
-
-.footer-section ul li a {
-  color: #ccc;
-  text-decoration: none;
-  transition: all 0.3s ease;
+.legal-links {
   display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.footer-section ul li a:hover {
-  color: var(--primary-saffron);
-  padding-left: 5px;
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
   gap: 12px;
-  color: #ccc;
+  align-items: center;
 }
 
-.contact-item svg {
-  color: var(--primary-saffron);
+.legal-links a {
+  color: #6B7280;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.footer-bottom {
-  background: rgba(0, 0, 0, 0.3);
-  padding: 20px 30px;
-  text-align: center;
-  color: #aaa;
-  border-top: 1px solid rgba(255, 153, 51, 0.2);
-  margin-top: 20px;
+.legal-links a:hover {
+  color: var(--royal-gold);
 }
 
-@media (max-width: 768px) {
-  .footer-content {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 0 15px 30px;
+/* Responsive */
+@media (max-width: 1024px) {
+  .footer-main-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
   }
 
-  .footer-bottom {
-    padding: 15px;
-    font-size: 14px;
+  .trust-bar-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bottom-bar-flex {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
   }
 }

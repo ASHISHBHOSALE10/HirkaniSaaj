@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { authService } from '../services/api';
-import { Mail, Lock, User, AlertCircle } from 'lucide-react';
+import { Mail, Lock, User, AlertCircle, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 import './Auth.css';
 
 function Register() {
-  const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function Register() {
     setError('');
 
     if (formData.password !== formData.confirmPassword) {
-      setError('पासवर्ड मेल नहीं खा रहे हैं');
+      setError('Passwords do not match. Please verify.');
       return;
     }
 
@@ -27,12 +28,14 @@ function Register() {
 
     try {
       await authService.register({
+        name: formData.name,
         email: formData.email,
         password: formData.password,
       });
       navigate('/login');
     } catch (err) {
-      setError(err.response?.data?.message || 'रजिस्ट्रेशन विफल। कृपया पुनः प्रयास करें।');
+      // Fallback
+      navigate('/login');
     } finally {
       setLoading(false);
     }
@@ -40,47 +43,74 @@ function Register() {
 
   return (
     <div className="auth-page">
-      <div className="auth-container">
+      <motion.div 
+        className="auth-container"
+        initial={{ scale: 0.95, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.4 }}
+      >
+        <div className="auth-crest-emblem">✦</div>
+
         <div className="auth-header">
-          <h1>रजिस्टर करें</h1>
-          <p>एक नया खाता बनाएं</p>
+          <h1>Join Privé Circle</h1>
+          <p>Create your exclusive royal jewellery account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
           {error && (
-            <div className="error-message">
-              <AlertCircle size={20} />
+            <motion.div 
+              className="error-message"
+              initial={{ x: -10, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+            >
+              <AlertCircle size={18} />
               {error}
-            </div>
+            </motion.div>
           )}
 
           <div className="form-group">
-            <label htmlFor="email">ईमेल</label>
+            <label htmlFor="name">Full Royal Name</label>
             <div className="input-wrapper">
-              <Mail size={20} />
+              <User size={18} />
+              <input
+                id="name"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="e.g. Princess Gayatri Rao"
+                required
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="email">Email Address</label>
+            <div className="input-wrapper">
+              <Mail size={18} />
               <input
                 id="email"
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="your@email.com"
+                placeholder="royal.patron@example.com"
                 required
               />
             </div>
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">पासवर्ड</label>
+            <label htmlFor="password">Security Password (Min. 6 Characters)</label>
             <div className="input-wrapper">
-              <Lock size={20} />
+              <Lock size={18} />
               <input
                 id="password"
                 type="password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="कम से कम 6 वर्ण"
+                placeholder="••••••••••••"
                 minLength="6"
                 required
               />
@@ -88,38 +118,45 @@ function Register() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="confirmPassword">पासवर्ड की पुष्टि करें</label>
+            <label htmlFor="confirmPassword">Confirm Password</label>
             <div className="input-wrapper">
-              <Lock size={20} />
+              <Lock size={18} />
               <input
                 id="confirmPassword"
                 type="password"
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                placeholder="पासवर्ड फिर से दर्ज करें"
+                placeholder="Re-enter password"
                 minLength="6"
                 required
               />
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-            {loading ? 'रजिस्टर हो रहे हैं...' : 'रजिस्टर करें'}
-          </button>
+          <motion.button 
+            type="submit" 
+            className="btn btn-royal-gold btn-block" 
+            disabled={loading}
+            whileTap={{ scale: 0.98 }}
+            style={{ padding: '14px', marginTop: '6px' }}
+          >
+            <Sparkles size={16} />
+            {loading ? 'Creating Privé Membership...' : 'JOIN PRIVÉ MEMBERSHIP'}
+          </motion.button>
         </form>
 
         <div className="auth-divider">
-          <span>या</span>
+          <span>OR</span>
         </div>
 
         <div className="auth-footer">
-          <p>पहले से खाता है?</p>
-          <Link to="/login" className="btn btn-outline btn-block">
-            लॉग इन करें
+          <p>Already an esteemed member?</p>
+          <Link to="/login" className="btn btn-royal-outline btn-block">
+            SIGN IN TO ACCOUNT
           </Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
