@@ -11,16 +11,17 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
 
   const subtotal = items.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const discount = promoApplied ? subtotal * 0.1 : 0;
-  const tax = (subtotal - discount) * 0.03; // 3% GST on fine gold & jewellery
+  const tax = (subtotal - discount) * 0.03; // 3% Indian Gold & Jewellery GST
   const shipping = subtotal > 10000 ? 0 : 500;
   const total = subtotal - discount + tax + (items.length > 0 ? shipping : 0);
 
   const handleApplyPromo = () => {
-    if (promoCode.toUpperCase() === 'ROYAL10' || promoCode.toUpperCase() === 'PRIVELUXE') {
+    const code = promoCode.trim().toUpperCase();
+    if (code === 'HIRKANI10' || code === 'SAAJPRIVILEGE' || code === 'ROYAL10') {
       setPromoApplied(true);
       setPromoError('');
     } else {
-      setPromoError('Invalid coupon code. Try ROYAL10 for 10% privilege discount.');
+      setPromoError('Invalid privilege code. Use HIRKANI10 for 10% royal discount.');
     }
   };
 
@@ -31,7 +32,7 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
           <div className="empty-cart-royal">
             <div className="empty-crest">✦</div>
             <h2>Your Royal Shopping Bag is Empty</h2>
-            <p>Discover our heirloom collections of 22K pure gold, certified solitaires, and uncut polki masterpieces.</p>
+            <p>Discover our heirloom collections of 22K pure gold, certified solitaires, and royal Kolhapuri Saaj masterpieces.</p>
             <Link to="/products" className="btn btn-royal-gold btn-large" style={{ marginTop: '24px' }}>
               DISCOVER MASTERPIECES
             </Link>
@@ -46,8 +47,8 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
       <div className="cart-page-header">
         <div className="royal-container">
           <span className="section-subtitle">Your Selected Jewels</span>
-          <h1>Royal Shopping Bag</h1>
-          <p>{items.reduce((sum, i) => sum + i.quantity, 0)} Handcrafted Creations</p>
+          <h1>HirkaniSaaj Shopping Bag</h1>
+          <p>{items.reduce((sum, i) => sum + i.quantity, 0)} Handcrafted Heirloom Creations</p>
         </div>
       </div>
 
@@ -80,9 +81,9 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
                     />
                   </div>
                   <div className="item-text-details">
-                    <span className="item-purity-label">{item.purity || '22K Hallmarked Gold'}</span>
+                    <span className="item-purity-label">{item.purity || '22K BIS Hallmarked Gold'}</span>
                     <h3>{item.name}</h3>
-                    <p className="item-huid-tag">✦ BIS Hallmarked & Insured</p>
+                    <p className="item-huid-tag">✦ BIS 916 Hallmarked & Fully Insured</p>
                   </div>
                 </div>
 
@@ -131,8 +132,8 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
           <div className="cart-security-badge">
             <ShieldCheck size={22} color="#D4AF37" />
             <div>
-              <strong>Ratnalok Royal Guarantee</strong>
-              <p>Every piece is 100% insured during transit and arrives in our bespoke luxury velvet presentation box.</p>
+              <strong>HirkaniSaaj Royal Guarantee</strong>
+              <p>Every creation is 100% insured during transit and delivered in our signature velvet heirloom box with certificate.</p>
             </div>
           </div>
         </div>
@@ -155,12 +156,12 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
           )}
 
           <div className="summary-row">
-            <span>GST on Jewellery (3%):</span>
+            <span>GST on Gold Jewellery (3%):</span>
             <span>₹{tax.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</span>
           </div>
 
           <div className="summary-row">
-            <span>Insured Shipping:</span>
+            <span>Insured Armored Shipping:</span>
             <span className={shipping === 0 ? 'free-tag' : ''}>
               {shipping === 0 ? 'COMPLIMENTARY' : `₹${shipping}`}
             </span>
@@ -178,7 +179,7 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
             <div className="promo-input-wrap">
               <input 
                 type="text" 
-                placeholder="Privilege Code (Try ROYAL10)" 
+                placeholder="Privilege Code (HIRKANI10)" 
                 value={promoCode}
                 onChange={(e) => setPromoCode(e.target.value)}
               />
@@ -186,7 +187,7 @@ function Cart({ items = [], onUpdateQuantity, onRemove }) {
                 APPLY
               </button>
             </div>
-            {promoApplied && <p className="promo-success">✨ 10% Royal Privé discount applied!</p>}
+            {promoApplied && <p className="promo-success">✨ 10% HirkaniSaaj Privé discount applied!</p>}
             {promoError && <p className="promo-error">{promoError}</p>}
           </div>
 

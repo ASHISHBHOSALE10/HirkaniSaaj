@@ -22,7 +22,7 @@ function Footer() {
           <div className="trust-bar-item">
             <ShieldCheck size={24} className="gold-text-icon" />
             <div>
-              <strong>100% BIS Hallmarked</strong>
+              <strong>100% BIS 916 Hallmarked</strong>
               <span>Government of India Certified 22K/18K Gold</span>
             </div>
           </div>
@@ -50,12 +50,12 @@ function Footer() {
           <div className="footer-brand-header">
             <div className="footer-crest">✦</div>
             <div className="footer-titles">
-              <span className="brand-name">RATNALOK</span>
-              <span className="brand-subtext">HAUTE JOAILLERIE • ESTD 1998</span>
+              <span className="brand-name">HIRKANISAAJ</span>
+              <span className="brand-subtext">हिरकणी साज • HAUTE JOAILLERIE • ESTD 1998</span>
             </div>
           </div>
           <p className="footer-about-text">
-            For over two decades, Ratnalok has crafted bespoke royal jewellery and heirloom treasures that define royal celebrations, bridal grandeur, and enduring legacy.
+            For over two decades, HirkaniSaaj has crafted bespoke royal Kolhapuri Saaj, Peshwai Thushi, and certified solitaire heirlooms that celebrate royal Maratha heritage and timeless bridal grandeur.
           </p>
           <div className="social-links-row">
             <a href="#website" title="Global Atelier" className="social-circle-btn"><Globe size={18} /></a>
@@ -68,11 +68,11 @@ function Footer() {
         <div className="footer-col">
           <h4 className="footer-heading">Royal Collections</h4>
           <ul className="footer-links">
-            <li><a href="/products?category=necklace">Bridal Polki & Chokers</a></li>
+            <li><a href="/products?category=necklace">Royal Kolhapuri Saaj (कोल्हापुरी साज)</a></li>
+            <li><a href="/products?category=necklace">Peshwai Ruby Thushi (ठुशी)</a></li>
             <li><a href="/products?category=rings">Solitaire Diamond Rings</a></li>
-            <li><a href="/products?category=bangles">Heritage Temple Bangles</a></li>
+            <li><a href="/products?category=bangles">Temple Kadas & Patlya (तोडे)</a></li>
             <li><a href="/products?category=earrings">Emerald & Ruby Drops</a></li>
-            <li><a href="/products">The Nizam Royal Suite</a></li>
           </ul>
         </div>
 
@@ -83,8 +83,8 @@ function Footer() {
             <li><a href="#consultation">Virtual Video Consultation</a></li>
             <li><a href="#custom">Bespoke Heirloom Customization</a></li>
             <li><a href="#buyback">Lifetime Exchange & Buyback</a></li>
-            <li><a href="#care">Jewellery Care & Restoration</a></li>
-            <li><a href="#hallmark">Hallmark Purity Verification</a></li>
+            <li><a href="#care">Jewellery Care & Polishing</a></li>
+            <li><a href="#hallmark">BIS HUID Purity Verification</a></li>
           </ul>
         </div>
 
@@ -107,20 +107,20 @@ function Footer() {
               JOIN
             </button>
           </form>
-          {subscribed && <p className="newsletter-success">✦ Welcome to the Ratnalok Privé Circle.</p>}
+          {subscribed && <p className="newsletter-success">✦ Welcome to the HirkaniSaaj Privé Circle.</p>}
 
           <div className="contact-quick-info">
             <div className="info-item">
               <MapPin size={16} className="gold-text-icon" />
-              <span>Flagship Salon: Connaught Place, New Delhi</span>
+              <span>Flagship Salons: Mumbai • Pune • Kolhapur • Delhi</span>
             </div>
             <div className="info-item">
               <Phone size={16} className="gold-text-icon" />
-              <span>Concierge: +91 (011) 2345-6789</span>
+              <span>Concierge: 1800-HIRKANI-SAAJ</span>
             </div>
             <div className="info-item">
               <Mail size={16} className="gold-text-icon" />
-              <span>concierge@ratnalok.com</span>
+              <span>concierge@hirkanisaaj.com</span>
             </div>
           </div>
         </div>
@@ -129,7 +129,7 @@ function Footer() {
       {/* 3. BOTTOM COPYRIGHT BAR */}
       <div className="footer-bottom-bar">
         <div className="royal-container bottom-bar-flex">
-          <p>&copy; 2026 RATNALOK HAUTE JOAILLERIE PVT LTD. All Rights Reserved.</p>
+          <p>&copy; 2026 HIRKANISAAJ HAUTE JOAILLERIE PVT LTD. All Rights Reserved.</p>
           <div className="legal-links">
             <a href="#privacy">Privacy Policy</a>
             <span>•</span>

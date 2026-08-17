@@ -1,23 +1,16 @@
-# 💎 Ratnalok Jewelry E-Commerce - Deep Dive Documentation
+ # 💎 HirkaniSaaj (हिरकणी साज) - Deep Dive Technical Documentation
 
-Welcome to the comprehensive technical guide for the Ratnalok project. This document is designed to help you understand the architecture, design patterns, and implementation details at a level that will prepare you for a technical interview as a fresher.
+Welcome to the comprehensive technical guide for the **HirkaniSaaj (हिरकणी साज)** Haute Joaillerie platform. This document explains the architecture, security, distributed messaging, and technical decisions at an interview-ready level.
 
 ---
 
 ## 🏗 1. System Architecture: The "Why" and "How"
 
-The project follows a **Microservices Architecture**. Instead of one large application (Monolith), the system is divided into small, independent services that communicate over the network.
+The project follows a **Microservices Architecture**. Instead of one large monolithic application, the platform is divided into autonomous, loosely coupled services communicating over HTTP REST (via API Gateway) and asynchronous message queues (RabbitMQ).
 
-### Why Microservices?
-- **Scalability**: If the Product Service is slow, we can scale only that service without affecting others.
-- **Independent Deployment**: You can update the Notification Service without stopping the Order Service.
-- **Fault Tolerance**: If the Payment Service goes down, users can still browse products (Product Service is still up).
-- **Tech Flexibility**: Different services could technically use different databases or languages (though we used Java for all).
-
-### Architecture Components
 ```mermaid
 graph TD
-    User((User/Browser)) -->|1. Request| Gateway[API Gateway :8080]
+    User((Client / React)) -->|1. Request| Gateway[API Gateway :8080]
     Gateway -->|2. Route Discovery| Eureka[Eureka Server :8761]
     
     subgraph "Microservices Layer"
@@ -27,24 +20,24 @@ graph TD
         PaySvc[Payment Service :8084]
     end
     
-    Gateway -->|3. Forward Request| UserSvc
-    Gateway -->|3. Forward Request| ProdSvc
-    Gateway -->|3. Forward Request| OrderSvc
-    Gateway -->|3. Forward Request| PaySvc
+    Gateway -->|Forward| UserSvc
+    Gateway -->|Forward| ProdSvc
+    Gateway -->|Forward| OrderSvc
+    Gateway -->|Forward| PaySvc
     
-    subgraph "Messaging (Async)"
+    subgraph "Event-Driven Messaging"
         MQ[RabbitMQ]
     end
     
-    OrderSvc -->|4. Order Event| MQ
-    PaySvc -->|4. Payment Event| MQ
-    MQ -->|5. Notify| NotifSvc[Notification Service :8085]
+    OrderSvc -->|Order Event| MQ
+    PaySvc -->|Payment Event| MQ
+    MQ -->|Consume & Notify| NotifSvc[Notification Service :8085]
     
-    subgraph "Databases (Isolation)"
-        UserDB[(User DB)]
-        ProdDB[(Product DB)]
-        OrderDB[(Order DB)]
-        PayDB[(Payment DB)]
+    subgraph "Isolated Databases (Database-per-Service)"
+        UserDB[(User DB: jewellery_users)]
+        ProdDB[(Product DB: jewellery_products)]
+        OrderDB[(Order DB: jewellery_orders)]
+        PayDB[(Payment DB: jewellery_payments)]
     end
     
     UserSvc --> UserDB
@@ -55,177 +48,51 @@ graph TD
 
 ---
 
-## 🛡 2. Security Deep Dive: JSON Web Tokens (JWT)
+## 🛡 2. Security: Stateless JWT Authentication
 
-In a microservices world, we can't use traditional "Sessions" because services are distributed. We use **JWT** for stateless authentication.
-
-### The JWT Flow
-1.  **Login**: User sends email/password to `User Service`.
-2.  **Token Generation**: `User Service` validates credentials and creates a signed JWT using a `Secret Key`.
-3.  **Client Storage**: The React frontend receives the token and stores it in `localStorage`.
-4.  **Authorization Header**: For every subsequent request (e.g., placing an order), the Frontend adds the token: `Authorization: Bearer <TOKEN>`.
-5.  **Validation**: The `JwtFilter` in the target service (or Gateway) intercepts the request, extracts the token, and validates the signature using the `Secret Key`.
-
-### Under the Hood: `JwtUtil.java`
-- **Claims**: Information stored inside the token (Username, Expiration, Roles).
-- **Signing**: Uses `HS256` algorithm to ensure the token hasn't been tampered with.
+Authentication in distributed microservices is stateless using **JSON Web Tokens (JWT)**:
+1. **Login Request**: The user submits credentials to `User Service` via the Gateway.
+2. **Token Minting**: `User Service` authenticates the credentials against the database using `BCryptPasswordEncoder` and signs a JWT with `HS256`.
+3. **Client Storage**: The React client stores the JWT token in `localStorage`.
+4. **Authorization Header**: For subsequent authenticated operations (profile, order placement), Axios Interceptors attach `Authorization: Bearer <TOKEN>`.
+5. **Validation**: `JwtFilter` intercepts requests, extracts the claims, verifies the signature, and populates `SecurityContextHolder`.
 
 ---
 
 ## 📡 3. Service Discovery: Netflix Eureka
 
-How does the API Gateway know where the Product Service is (IP and Port)?
-
-1.  **Registration**: When `Product Service` starts, it tells Eureka: "I am 'product-service' and I am at 192.168.1.5:8082".
-2.  **Heartbeats**: The service sends a signal every 30 seconds to Eureka to say "I'm still alive".
-3.  **Discovery**: When a request comes to the Gateway for `/api/products/**`, the Gateway asks Eureka for the address of 'product-service' and then forwards the request.
+1. **Self-Registration**: On startup, each microservice registers its IP, port, and health status with `Eureka Server` (port 8761).
+2. **Heartbeats**: Microservices send 30-second heartbeat renewals.
+3. **Dynamic Routing**: `API Gateway` queries Eureka to resolve service names (e.g. `lb://product-service`) dynamically without hardcoded IP addresses.
 
 ---
 
-## ✉️ 4. Asynchronous Messaging: RabbitMQ
+## ✉️ 4. Asynchronous Event-Driven Messaging: RabbitMQ
 
-When an order is placed, we want to notify the user. Doing this synchronously (calling the Notification Service directly) has downsides:
-- If Notification Service is down, the order fails (Bad!).
-- The user has to wait for the email/SMS to be sent before getting a confirmation (Slow!).
-
-**Solution: RabbitMQ (Event-Driven)**
-1.  **Order Service** (Producer) finishes the DB entry and "pushes" an `OrderPlacedEvent` to a RabbitMQ Queue.
-2.  **Order Service** immediately returns success to the user.
-3.  **Notification Service** (Consumer) listens to the queue. When it's free, it picks up the event and sends the notification.
-4.  **Result**: Better performance and "loose coupling".
+When an order is created, notifications are decoupled from order persistence:
+1. `Order Service` saves the order in `jewellery_orders` and publishes `OrderPlacedEvent` to the RabbitMQ exchange.
+2. The user receives an immediate `201 Created` response.
+3. `Notification Service` consumes the message from the queue and dispatches simulated email and SMS confirmations asynchronously.
 
 ---
 
-## 💻 5. Frontend: React & Modern UX
+## 💻 5. Frontend Design: HirkaniSaaj Royal Storefront
 
-The frontend is built for speed and responsiveness.
-
-### Key Technologies:
-- **React Hooks**: `useState` for UI state, `useEffect` for API calls.
-- **Axios Interceptors**: A central "security guard" (`api.js`) that:
-    - Automatically attaches the JWT token to every outgoing request.
-    - Redirects to `/login` if a `401 Unauthorized` error occurs (Token expired).
-- **Framer Motion**: Used for "Micro-interactions" (buttons scaling, cards sliding in) to make the site feel premium.
-- **Responsive Design**: CSS Grid and Flexbox ensure the jewelry catalog looks great on both Mobile and Desktop.
-
----
-
-## 🔄 6. "A Day in the Life" of an Order (Workflow)
-
-Tracing a request from start to finish:
-
-```mermaid
-sequenceDiagram
-    participant U as User (React)
-    participant G as API Gateway
-    participant S as Order Service
-    participant R as RabbitMQ
-    participant N as Notification Svc
-
-    U->>G: POST /api/orders (with JWT)
-    G->>S: Forward Request
-    S->>S: Validate JWT & Process Business Logic
-    S->>S: Save to MySQL
-    S->>R: Publish 'OrderPlacedEvent'
-    S-->>G: 201 Created
-    G-->>U: Success UI Update
-    R->>N: Deliver Event
-    N->>N: Send Email/SMS (Simulation)
-```
-
-1.  **Frontend**: User clicks "Place Order" in `Cart.js`.
-2.  **Security**: `api.js` attaches the JWT token.
-3.  **Gateway**: Receives request at `:8080/api/orders`. It checks its routing table and Eureka to find `order-service`.
-4.  **Order Service**: 
-    - `JwtFilter` validates the token.
-    - `OrderController` receives data.
-    - `OrderService` calculates total and saves to `OrderDB`.
-    - `OrderService` publishes an event to **RabbitMQ**.
-5.  **RabbitMQ**: Holds the message safely.
-6.  **Notification Service**: Picks up the message and logs/sends a "Thank You" alert.
-7.  **Frontend**: Receives a `201 Created` response and shows a success animation.
+- **Brand Theme**: Royal Maratha Heritage (`#0B251C`, `#D4AF37`, `#FAF7F2`).
+- **Typography**: `Cinzel`, `Playfair Display`, and `Plus Jakarta Sans`.
+- **Key Pages**:
+  - **Home**: Royal hero banner, Trust pillars, Collection categories, Trending masterpieces, Hirkani story.
+  - **Products**: Collection filters, price filtering, sorting, wishlist toggle, hallmark purity indicators.
+  - **Shopping Bag**: Promo discount codes (`HIRKANI10`), 3% Indian Gold GST, gift packaging.
+  - **Checkout**: Delivery address validator, secure payment gateways (Cards, UPI, COD), order confirmed screen.
+  - **Privé Portal**: Member tier card, order history timeline.
 
 ---
 
-## 👨‍🏫 7. Interview Readiness: Q&A
+## 🚀 6. Interview Q&A Summary
 
-**Q: What is an API Gateway?**
-A: It's the entry point for the system. It handles routing, security, and CORS, so individual services don't have to worry about them.
+**Q: Why use a Database-per-Service pattern?**  
+A: To ensure strict loose coupling. No service can directly query or modify another service's tables, preventing cascading failures and allowing independent schema evolution.
 
-**Q: What is the difference between Synchronous and Asynchronous communication?**
-A: Synchronous (REST/Feign) is "wait for response". Asynchronous (RabbitMQ) is "fire and forget" using events.
-
-**Q: Why use a database per service?**
-A: It ensures "Loose Coupling". One service can't accidentally mess up another service's data. It also allows using different DB types (e.g., MySQL for Orders, MongoDB for Product Catalog).
-
-**Q: How do you handle authentication in Microservices?**
-A: We use JWT. It's stateless, meaning the backend doesn't need to store session data, making it easy to scale.
-
----
-
-## 📂 File Structure Guide
-
-### Backend (Java/Spring)
-- `controller/`: The "Waiters" - they take your order (API request).
-- `service/`: The "Chefs" - they do the hard work (Business logic).
-- `repository/`: The "Storage" - they talk to the database.
-- `entity/`: The "Blueprints" - they define what a Product or Order looks like.
-- `dto/`: The "Packages" - used to transfer data safely between layers.
-
-### Frontend (React)
-- `src/services/api.js`: The central communication hub.
-- `src/pages/`: Full screen views (Home, Products, Login).
-- `src/components/`: Reusable pieces (Navbar, Footer, ProductCard).
-
----
-
-## 🚀 8. Step-by-Step Setup Guide
-
-Follow these steps exactly to get the system running on your local machine.
-
-### Step 1: Prerequisites
-- **Java 17+**: The language the backend is written in.
-- **Maven**: The build tool that manages Java dependencies.
-- **MySQL**: The relational database used for storing users, products, and orders.
-- **RabbitMQ**: The message broker for asynchronous communication.
-- **Node.js & npm**: For running the React frontend.
-
-### Step 2: Database Setup
-Execute these commands in your MySQL terminal:
-```sql
-CREATE DATABASE IF NOT EXISTS jewellery_users;
-CREATE DATABASE IF NOT EXISTS jewellery_products;
-CREATE DATABASE IF NOT EXISTS jewellery_orders;
-CREATE DATABASE IF NOT EXISTS jewellery_payments;
-```
-*Tip: Ensure your MySQL 'root' user password is 'root' or update it in the `application.yml` of each service.*
-
-### Step 3: Build the Project
-Run this in the root folder to compile all microservices:
-```powershell
-mvn clean install -DskipTests
-```
-This generates `.jar` files in the `target/` folder of each service.
-
-### Step 4: Starting the Backend (Critical Order)
-1. **Eureka Server**: Start this first so other services can register.
-2. **API Gateway**: Start this second to handle incoming traffic.
-3. **Microservices**: Start User, Product, Order, and Payment services.
-4. **Notification Service**: Start this last to begin listening for events.
-
-*Command to run a service:*
-`java -jar [service-name]/target/[file].jar`
-
-### Step 5: Starting the Frontend
-1. `cd jewelry-frontend`
-2. `npm install` (First time only)
-3. `npm start`
-4. Visit `http://localhost:3000`
-
----
-
-## 🛠 Troubleshooting for Freshers
-- **Port already in use**: Another app is using the port (e.g., 8080). Close it or change the port in `application.yml`.
-- **CORS Error**: Usually happens if the API Gateway is not running or the frontend is calling the microservice directly instead of going through the Gateway.
-- **RabbitMQ Connection Refused**: Ensure the RabbitMQ service is started on your machine.
-- **'react-scripts' not recognized**: This usually happens if `node_modules` are corrupted or missing. Avoid using `npm audit fix --force` as it can downgrade critical packages to incompatible versions. If this happens, restore `react-scripts` to `5.0.1` in `package.json` and run `npm install`.
+**Q: How does Spring Cloud Gateway handle Cross-Origin Resource Sharing (CORS)?**  
+A: Centralized CORS configuration in `api-gateway/src/main/resources/application.yml` intercepts preflight `OPTIONS` requests and applies consistent CORS headers across all microservices.

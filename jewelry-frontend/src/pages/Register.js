@@ -34,7 +34,6 @@ function Register() {
       });
       navigate('/login');
     } catch (err) {
-      // Fallback
       navigate('/login');
     } finally {
       setLoading(false);
@@ -52,7 +51,7 @@ function Register() {
         <div className="auth-crest-emblem">✦</div>
 
         <div className="auth-header">
-          <h1>Join Privé Circle</h1>
+          <h1>Join HirkaniSaaj Privé</h1>
           <p>Create your exclusive royal jewellery account</p>
         </div>
 
@@ -78,7 +77,7 @@ function Register() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="e.g. Princess Gayatri Rao"
+                placeholder="e.g. Maharani Radhika Raje"
                 required
               />
             </div>
@@ -94,7 +93,7 @@ function Register() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="royal.patron@example.com"
+                placeholder="royal.patron@hirkanisaaj.com"
                 required
               />
             </div>

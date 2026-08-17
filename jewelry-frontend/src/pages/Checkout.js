@@ -96,15 +96,15 @@ function Checkout({ cartItems = [], user }) {
             style={{ maxWidth: '640px' }}
           >
             <CheckCircle size={68} color="#D4AF37" style={{ margin: '0 auto 16px' }} />
-            <span className="section-subtitle">Royal Order Confirmed</span>
+            <span className="section-subtitle">HirkaniSaaj Order Confirmed</span>
             <h2 style={{ color: 'var(--royal-emerald-dark)', margin: '8px 0 16px' }}>
               Thank You for Your Royal Patronage
             </h2>
             <div style={{ background: '#FAF7F2', border: '1px solid #EFEAE0', borderRadius: '8px', padding: '20px', margin: '20px 0', textAlign: 'left' }}>
-              <p style={{ margin: '6px 0', fontSize: '14px' }}><strong>Order Reference:</strong> #RL-{orderSuccess.id}</p>
+              <p style={{ margin: '6px 0', fontSize: '14px' }}><strong>Order Reference:</strong> #HS-{orderSuccess.id}</p>
               <p style={{ margin: '6px 0', fontSize: '14px' }}><strong>Total Amount Paid:</strong> ₹{total.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</p>
-              <p style={{ margin: '6px 0', fontSize: '14px' }}><strong>Shipping:</strong> Tamper-proof Insured Royal Armored Courier</p>
-              <p style={{ margin: '6px 0', fontSize: '14px', color: '#059669', fontWeight: 600 }}>✦ 100% BIS Hallmarked Purity Certificate Enclosed</p>
+              <p style={{ margin: '6px 0', fontSize: '14px' }}><strong>Shipping:</strong> Tamper-proof Insured Armored Transit</p>
+              <p style={{ margin: '6px 0', fontSize: '14px', color: '#059669', fontWeight: 600 }}>✦ 100% BIS 916 Hallmarked Purity Certificate Enclosed</p>
             </div>
             <Link to="/products" className="btn btn-royal-gold btn-large">
               CONTINUE BROWSING JEWELLERY
@@ -136,7 +136,7 @@ function Checkout({ cartItems = [], user }) {
         <div className="royal-container">
           <span className="section-subtitle">Secure Luxury Checkout</span>
           <h1>Complete Your Royal Order</h1>
-          <p>End-to-end 256-bit encrypted checkout with insured delivery</p>
+          <p>End-to-end 256-bit encrypted checkout with insured armored delivery</p>
         </div>
       </div>
 
@@ -159,7 +159,7 @@ function Checkout({ cartItems = [], user }) {
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', marginBottom: '16px' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', fontSize: '13px', fontWeight: 600, color: '#374151' }}>Full Name *</label>
-              <input required name="fullName" value={address.fullName} onChange={handleInputChange} placeholder="e.g. Maharani Gayatri Devi" />
+              <input required name="fullName" value={address.fullName} onChange={handleInputChange} placeholder="e.g. Shrimant Rajeshwari Rane" />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', fontSize: '13px', fontWeight: 600, color: '#374151' }}>Contact Phone *</label>
@@ -169,13 +169,13 @@ function Checkout({ cartItems = [], user }) {
 
           <div style={{ marginBottom: '16px' }}>
             <label style={{ display: 'block', marginBottom: '6px', fontSize: '13px', fontWeight: 600, color: '#374151' }}>Residence / Villa Address *</label>
-            <input required name="street" value={address.street} onChange={handleInputChange} placeholder="House / Flat No., Mansion, Street Name" />
+            <input required name="street" value={address.street} onChange={handleInputChange} placeholder="House / Flat No., Landmark, Street Name" />
           </div>
 
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '16px', marginBottom: '32px' }}>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', fontSize: '13px', fontWeight: 600, color: '#374151' }}>City *</label>
-              <input required name="city" value={address.city} onChange={handleInputChange} placeholder="City" />
+              <input required name="city" value={address.city} onChange={handleInputChange} placeholder="e.g. Pune, Mumbai, Kolhapur" />
             </div>
             <div>
               <label style={{ display: 'block', marginBottom: '6px', fontSize: '13px', fontWeight: 600, color: '#374151' }}>State *</label>
@@ -197,8 +197,8 @@ function Checkout({ cartItems = [], user }) {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '30px' }}>
             {[
-              { id: 'CARD', label: 'Credit / Debit Card (Visa, MasterCard, Amex)', desc: 'Secure 3D-authenticated payment' },
-              { id: 'UPI', label: 'UPI / NetBanking (Google Pay, PhonePe, Paytm)', desc: 'Instant bank transfer with verification' },
+              { id: 'CARD', label: 'Credit / Debit Card (Visa, MasterCard, Amex, RuPay)', desc: 'Secure 3D-authenticated payment' },
+              { id: 'UPI', label: 'UPI / NetBanking (Google Pay, PhonePe, Paytm, BHIM)', desc: 'Instant bank transfer with verification' },
               { id: 'COD', label: 'Insured Cash On Delivery (Valuables up to ₹2,00,000)', desc: 'Pay upon delivery after inspection' }
             ].map(p => (
               <label key={p.id} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px', padding: '14px', border: `1.5px solid ${paymentMethod === p.id ? 'var(--royal-gold)' : '#E5DFD5'}`, borderRadius: '6px', background: paymentMethod === p.id ? '#FAF7F2' : '#FFFFFF', cursor: 'pointer' }}>
@@ -262,7 +262,7 @@ function Checkout({ cartItems = [], user }) {
 
           <div style={{ background: '#FAF7F2', border: '1px solid #EFEAE0', padding: '12px', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <ShieldCheck size={20} color="#D4AF37" />
-            <span style={{ fontSize: '12px', color: '#4B5563' }}>256-Bit SSL Encrypted & Insured by Ratnalok</span>
+            <span style={{ fontSize: '12px', color: '#4B5563' }}>256-Bit SSL Encrypted & Insured by HirkaniSaaj</span>
           </div>
         </aside>
       </div>

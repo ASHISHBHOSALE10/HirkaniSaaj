@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { orderService } from '../services/api';
 import { Package, Mail, MapPin, LogOut, Award, Sparkles, Phone } from 'lucide-react';
@@ -8,6 +8,16 @@ function Profile({ user }) {
   const navigate = useNavigate();
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const mockPastOrders = useMemo(() => [
+    {
+      id: 849201,
+      createdAt: '2026-08-10',
+      status: 'DISPATCHED - INSURED TRANSIT',
+      totalAmount: 185000,
+      item: 'The Royal Kolhapuri Saaj (22K Gold)'
+    }
+  ], []);
 
   useEffect(() => {
     if (!user) {
@@ -27,17 +37,7 @@ function Profile({ user }) {
     };
 
     fetchOrders();
-  }, [user, navigate]);
-
-  const mockPastOrders = [
-    {
-      id: 849201,
-      createdAt: '2026-08-10',
-      status: 'DISPATCHED - INSURED TRANSIT',
-      totalAmount: 185000,
-      item: 'The Nizam Royal Polki Choker (22K Gold)'
-    }
-  ];
+  }, [user, navigate, mockPastOrders]);
 
   if (!user) return null;
 
@@ -45,7 +45,7 @@ function Profile({ user }) {
     <div className="royal-cart-page">
       <div className="cart-page-header">
         <div className="royal-container">
-          <span className="section-subtitle">Ratnalok Privé Member Portal</span>
+          <span className="section-subtitle">HirkaniSaaj Privé Member Portal</span>
           <h1>My Royal Account</h1>
           <p>Heirloom orders, bespoke requests, and private concierge privileges</p>
         </div>
@@ -79,7 +79,7 @@ function Profile({ user }) {
               <Phone size={16} color="#D4AF37" /> <span>+91-98765-XXXXX (Verified)</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <MapPin size={16} color="#D4AF37" /> <span>India • Priority Royal Delivery</span>
+              <MapPin size={16} color="#D4AF37" /> <span>Maharashtra, India • Priority Transit</span>
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               <Award size={16} color="#D4AF37" /> <span>Dedicated Concierge Access</span>
@@ -120,7 +120,7 @@ function Profile({ user }) {
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                     <div>
                       <strong style={{ fontFamily: 'var(--font-serif-royal)', color: 'var(--royal-emerald-dark)' }}>
-                        Order #RL-{order.id}
+                        Order #HS-{order.id}
                       </strong>
                       <span style={{ display: 'block', fontSize: '12px', color: '#9CA3AF' }}>Date: {order.createdAt || 'Recent'}</span>
                     </div>

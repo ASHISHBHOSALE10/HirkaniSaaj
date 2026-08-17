@@ -23,48 +23,48 @@ function Home() {
   const trustPillars = [
     { 
       icon: ShieldCheck, 
-      title: '100% BIS Hallmarked', 
+      title: '100% BIS 916 Hallmarked', 
       description: 'Every gold creation carries 6-digit HUID purity certification guarantee.' 
     },
     { 
       icon: Award, 
-      title: 'Certified Solitaires', 
-      description: 'Handpicked VVS-EF natural diamonds authenticated by IGI & SGL laboratories.' 
+      title: 'IGI Certified Solitaires', 
+      description: 'Handpicked VVS-EF natural diamonds authenticated by world-renowned laboratories.' 
     },
     { 
       icon: Sparkles, 
       title: 'Royal Karigari', 
-      description: 'Handcrafted by hereditary master artisans preserving 300-year-old royal techniques.' 
+      description: 'Handcrafted by hereditary master artisans preserving 300-year-old royal Maratha techniques.' 
     },
     { 
       icon: RefreshCw, 
-      title: 'Lifetime Buyback', 
-      description: 'Complete transparency with lifetime exchange and buyback assurance on all pieces.' 
+      title: 'Lifetime Buyback Assurance', 
+      description: 'Complete transparency with lifetime exchange and guaranteed transparent valuation.' 
     },
   ];
 
   const categories = [
     {
-      name: 'Royal Necklaces',
-      subtitle: 'Bridal & Polki Sets',
+      name: 'Kolhapuri Saaj & Chokers',
+      subtitle: 'कोल्हापुरी साज व ठुशी',
       image: '/images/kundan_choker_necklace.png',
       link: '/products?category=necklace'
     },
     {
-      name: 'Solitaire Rings',
-      subtitle: '18K & Platinum Bands',
+      name: 'Solitaire Diamond Rings',
+      subtitle: '18K Rose Gold & Platinum',
       image: '/images/diamond_solitaire_ring.png',
       link: '/products?category=rings'
     },
     {
-      name: 'Heritage Bangles',
-      subtitle: '22K Temple Kadas',
+      name: 'Heritage Temple Bangles',
+      subtitle: 'पाटल्या, तोडे व कडे',
       image: '/images/heritage_gold_bangles.png',
       link: '/products?category=bangles'
     },
     {
-      name: 'Precious Earrings',
-      subtitle: 'Emeralds & Rubies',
+      name: 'Precious Gem Earrings',
+      subtitle: 'कुडी, झुमके व बुगडी',
       image: '/images/emerald_drop_earrings.png',
       link: '/products?category=earrings'
     }
@@ -73,14 +73,14 @@ function Home() {
   const trendingMasterpieces = [
     {
       id: 1,
-      name: 'The Nizam Royal Polki Choker',
-      purity: '22K Gold • Uncut Diamonds',
+      name: 'The Royal Kolhapuri Saaj (22K Gold)',
+      purity: '22K Gold • 21 Sacred Pendants',
       price: 185000,
       originalPrice: 210000,
       image: '/images/kundan_choker_necklace.png',
-      tag: 'ROYAL BRIDAL',
+      tag: 'ROYAL HERITAGE',
       rating: 5.0,
-      reviews: 38
+      reviews: 48
     },
     {
       id: 2,
@@ -95,7 +95,7 @@ function Home() {
     },
     {
       id: 3,
-      name: 'Padmavati Temple Gold Kadas',
+      name: 'Padmavati Temple Gold Kadas (तोडे)',
       purity: '22K Antique Yellow Gold',
       price: 145000,
       originalPrice: 160000,
@@ -130,20 +130,20 @@ function Home() {
           >
             <div className="hero-badge">
               <Sparkles size={14} className="gold-text-icon" />
-              <span>THE ROYAL BRIDAL & SOLITAIRE EDIT 2026</span>
+              <span>HIRKANISAAJ • ROYAL MARATHA HERITAGE 2026</span>
             </div>
 
             <h1 className="hero-main-title">
-              Timeless Heritage. <br />
-              <span className="gold-foil-text">Eternal Brilliance.</span>
+              शाही वारसा. <br />
+              <span className="gold-foil-text">अमर तेज.</span>
             </h1>
 
             <p className="hero-tagline-hindi">
-              रतन लोक — जहाँ भारतीय परंपरा और राजसी भव्यता का मिलन होता है।
+              हिरकणी साज — जिथे परंपरा आणि राजेशाही भव्यता यांचा अपूर्व संगम होतो.
             </p>
 
             <p className="hero-description">
-              Handcrafted in pure 22K Hallmarked Gold, Certified VVS Solitaires, and Rare Zambian Emeralds. Designed for royal dynasties and heirloom celebrations.
+              Handcrafted in pure 22K Hallmarked Gold, Certified VVS Solitaires, and Rare Gemstones. Inspired by historic royal dynasties and treasured heirloom celebrations.
             </p>
 
             <div className="hero-cta-actions">
@@ -152,7 +152,7 @@ function Home() {
                 EXPLORE MASTERPIECES
               </Link>
               <Link to="/products?category=necklace" className="btn btn-outline-white btn-large">
-                BRIDAL COLLECTION
+                KOLHAPURI SAAJ & CHOKERS
               </Link>
             </div>
 
@@ -164,7 +164,7 @@ function Home() {
               <div className="stat-divider"></div>
               <div className="stat-box">
                 <span className="stat-number">100%</span>
-                <span className="stat-label">BIS Hallmarked</span>
+                <span className="stat-label">BIS 916 Hallmarked</span>
               </div>
               <div className="stat-divider"></div>
               <div className="stat-box">
@@ -184,14 +184,14 @@ function Home() {
               <div className="ornate-arch-glow"></div>
               <img 
                 src="/images/hero_royal_necklace.png" 
-                alt="Ratnalok Royal Bridal Necklace Masterpiece" 
+                alt="HirkaniSaaj Royal Bridal Masterpiece" 
                 className="hero-masterpiece-img"
               />
               <div className="floating-hallmark-card">
                 <div className="hallmark-icon">✦</div>
                 <div className="hallmark-text">
                   <strong>BIS 916 HALLMARKED</strong>
-                  <span>100% Certified Natural Diamonds</span>
+                  <span>100% Certified Natural Diamonds & Gold</span>
                 </div>
               </div>
             </div>
@@ -326,7 +326,7 @@ function Home() {
 
           <div className="view-all-wrapper">
             <Link to="/products" className="btn btn-royal-emerald btn-large">
-              VIEW COMPLETE CATALOGUE ({`20+`} PIECES)
+              VIEW COMPLETE CATALOGUE
             </Link>
           </div>
         </div>
@@ -338,20 +338,20 @@ function Home() {
           <div className="atelier-grid">
             <div className="atelier-narrative">
               <span className="section-subtitle">Since 1998</span>
-              <h2 className="atelier-title">The Art of Royal Jewellery Making</h2>
+              <h2 className="atelier-title">The Legend of Hirkani & Royal Karigari</h2>
               <p className="atelier-p">
-                At Ratnalok, every masterpiece begins with a pure inspiration drawn from royal dynasties of India. Our hereditary master artisans hand-set each uncut Polki diamond, Burmese ruby, and Zambian emerald into 22-karat hallmarked gold.
+                At HirkaniSaaj, every masterpiece honors the indomitable courage and royal grandeur of Maharashtra. Our hereditary master artisans hand-craft each 22-karat hallmarked Kolhapuri Saaj, Peshwai Thushi, and uncut Polki diamond creation with centuries-old precision.
               </p>
               <p className="atelier-p">
-                We believe fine jewellery is more than adornment—it is an heirloom of emotion, an enduring investment, and a treasured legacy passed with honor through generations.
+                We believe fine jewellery is an eternal heirloom of honor, emotion, and royal heritage passed with pride across generations.
               </p>
               <div className="atelier-signature">
-                <span className="royal-script">Ratnalok Haute Joaillerie</span>
+                <span className="royal-script">HirkaniSaaj Haute Joaillerie</span>
               </div>
             </div>
             <div className="atelier-visual">
               <div className="atelier-img-box">
-                <img src="/images/ruby_diamond_necklace.png" alt="Royal Atelier Craftsmanship" className="atelier-img" />
+                <img src="/images/ruby_diamond_necklace.png" alt="HirkaniSaaj Royal Atelier Craftsmanship" className="atelier-img" />
               </div>
             </div>
           </div>
@@ -363,9 +363,9 @@ function Home() {
         <div className="royal-container">
           <div className="vip-banner-card">
             <div className="vip-crest">✦</div>
-            <h2>Join the Ratnalok Privé Circle</h2>
+            <h2>Join the HirkaniSaaj Privé Circle</h2>
             <p>
-              Enjoy private viewing appointments, bespoke customization consultations, and complimentary insured worldwide delivery.
+              Enjoy private salon appointments, bespoke customization consultations, and complimentary insured worldwide delivery.
             </p>
             <div className="vip-cta-row">
               <Link to="/register" className="btn btn-royal-gold btn-large">

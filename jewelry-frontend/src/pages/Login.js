@@ -31,7 +31,7 @@ function Login({ setUser }) {
         id: 1,
         email: formData.email,
         name: formData.email.split('@')[0].toUpperCase(),
-        token: 'demo-jwt-royal-token-2026'
+        token: 'demo-jwt-hirkanisaaj-token-2026'
       };
       setUser(fallbackUser);
       localStorage.setItem('user', JSON.stringify(fallbackUser));
@@ -52,8 +52,8 @@ function Login({ setUser }) {
         <div className="auth-crest-emblem">✦</div>
         
         <div className="auth-header">
-          <h1>Royal Sign In</h1>
-          <p>Access your Privé Vault, bespoke orders & wishlist</p>
+          <h1>HirkaniSaaj Privé Sign In</h1>
+          <p>Access your Privé Vault, bespoke orders & heirloom wishlist</p>
         </div>
 
         <form onSubmit={handleSubmit} className="auth-form">
@@ -78,7 +78,7 @@ function Login({ setUser }) {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="royal.patron@example.com"
+                placeholder="royal.patron@hirkanisaaj.com"
                 required
               />
             </div>
@@ -117,15 +117,15 @@ function Login({ setUser }) {
         </div>
 
         <div className="auth-footer">
-          <p>New to Ratnalok Haute Joaillerie?</p>
+          <p>New to HirkaniSaaj Haute Joaillerie?</p>
           <Link to="/register" className="btn btn-royal-outline btn-block">
             CREATE PRIVÉ ACCOUNT
           </Link>
         </div>
 
         <div className="demo-credentials">
-          <p><strong>Demo Instant Access:</strong></p>
-          <p>Email: <code>maharani@ratnalok.com</code> | Password: <code>royal123</code></p>
+          <p><strong>Instant Demo Access:</strong></p>
+          <p>Email: <code>maharani@hirkanisaaj.com</code> | Password: <code>royal123</code></p>
         </div>
       </motion.div>
     </div>

@@ -4,7 +4,7 @@ import { ShoppingBag, User, Menu, X, Search, Sparkles, PhoneCall } from 'lucide-
 import { motion, AnimatePresence } from 'framer-motion';
 import './Navbar.css';
 
-function Navbar({ cartCount, user, setUser }) {
+function Navbar({ cartCount = 0, user, setUser }) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate();
@@ -30,14 +30,14 @@ function Navbar({ cartCount, user, setUser }) {
         <div className="royal-container announcement-content">
           <div className="announcement-item left">
             <Sparkles size={14} className="gold-text-icon" />
-            <span>100% BIS Hallmarked Gold & IGI Certified Solitaires</span>
+            <span>100% BIS 916 Hallmarked Gold & IGI Certified Solitaires</span>
           </div>
           <div className="announcement-item center">
-            <span>✨ Complimentary Insured Express Delivery Across India ✨</span>
+            <span>✨ हिरकणी साज — शाही वारसा, अमर तेज | Insured Delivery Across India ✨</span>
           </div>
           <div className="announcement-item right">
             <PhoneCall size={13} className="gold-text-icon" />
-            <span>Royal Concierge: 1800-RATNA-LOK</span>
+            <span>Royal Concierge: 1800-HIRKANI-SAAJ</span>
           </div>
         </div>
       </div>
@@ -60,8 +60,8 @@ function Navbar({ cartCount, user, setUser }) {
               <div className="crest-emblem">✦</div>
             </div>
             <div className="brand-titles">
-              <span className="brand-name">RATNALOK</span>
-              <span className="brand-subtext">HAUTE JOAILLERIE • ESTD 1998</span>
+              <span className="brand-name">HIRKANISAAJ</span>
+              <span className="brand-subtext">हिरकणी साज • HAUTE JOAILLERIE • ESTD 1998</span>
             </div>
           </Link>
 
@@ -69,7 +69,7 @@ function Navbar({ cartCount, user, setUser }) {
           <form className="navbar-search" onSubmit={handleSearchSubmit}>
             <input 
               type="text" 
-              placeholder="Search diamond rings, bridal haar, gold bangles..." 
+              placeholder="Search Kolhapuri Saaj, Peshwai Thushi, Diamond Rings..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -87,13 +87,13 @@ function Navbar({ cartCount, user, setUser }) {
               ALL JEWELLERY
             </Link>
             <Link to="/products?category=necklace" className="nav-item-link" onClick={() => setIsOpen(false)}>
-              NECKLACES
+              SAAJ & CHOKERS
             </Link>
             <Link to="/products?category=rings" className="nav-item-link" onClick={() => setIsOpen(false)}>
               SOLITAIRES & RINGS
             </Link>
             <Link to="/products?category=bangles" className="nav-item-link" onClick={() => setIsOpen(false)}>
-              HERITAGE BANGLES
+              TEMPLE BANGLES
             </Link>
 
             {/* Mobile Auth Options */}
@@ -101,7 +101,7 @@ function Navbar({ cartCount, user, setUser }) {
               {user ? (
                 <>
                   <Link to="/profile" className="nav-item-link" onClick={() => setIsOpen(false)}>
-                    MY PROFILE
+                    MY PRIVÉ PROFILE
                   </Link>
                   <button className="nav-item-link logout-btn" onClick={handleLogout}>
                     LOGOUT
@@ -113,7 +113,7 @@ function Navbar({ cartCount, user, setUser }) {
                     LOGIN
                   </Link>
                   <Link to="/register" className="nav-item-link highlight" onClick={() => setIsOpen(false)}>
-                    BECOME A VIP MEMBER
+                    BECOME A PRIVÉ MEMBER
                   </Link>
                 </>
               )}

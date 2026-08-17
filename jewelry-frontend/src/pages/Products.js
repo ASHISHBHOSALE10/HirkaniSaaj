@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { productService } from '../services/api';
 import { ShoppingBag, Star, ShieldCheck, Heart, Sparkles, Filter } from 'lucide-react';
@@ -16,23 +16,37 @@ function Products({ onAddToCart }) {
 
   const location = useLocation();
 
-  const mockProducts = [
+  const mockProducts = useMemo(() => [
     {
       id: 1,
-      name: 'The Nizam Royal Polki Choker',
+      name: 'The Royal Kolhapuri Saaj (22K Gold)',
       category: 'necklace',
-      purity: '22K Gold • Uncut Polki Diamonds',
+      purity: '22K Gold • 21 Sacred Pendants',
       price: 185000,
       originalPrice: 215000,
-      description: 'Heirloom uncut Polki diamonds set in 22K hallmarked gold with Zambian emerald drops.',
+      description: 'Iconic 21-element royal Kolhapuri Saaj handcrafted in 22K hallmarked gold with ruby cabochons.',
       image: '/images/kundan_choker_necklace.png',
-      tag: 'ROYAL BRIDAL',
+      tag: 'ROYAL HERITAGE',
       rating: 5.0,
-      reviews: 42,
+      reviews: 48,
       inStock: true
     },
     {
       id: 2,
+      name: 'Peshwai Ruby Thushi (ठुशी)',
+      category: 'necklace',
+      purity: '22K Gold • Handcrafted Choker',
+      price: 88000,
+      originalPrice: 98000,
+      description: 'Classic royal Maharashtrian choker with pure gold woven beads and natural ruby floral centerpiece.',
+      image: '/images/ruby_diamond_necklace.png',
+      tag: 'PESHWAI SAAJ',
+      rating: 4.9,
+      reviews: 36,
+      inStock: true
+    },
+    {
+      id: 3,
       name: 'Eternity Solitaire Diamond Ring',
       category: 'rings',
       purity: '18K Rose Gold • VVS1 Clarity',
@@ -46,8 +60,8 @@ function Products({ onAddToCart }) {
       inStock: true
     },
     {
-      id: 3,
-      name: 'Padmavati Temple Gold Kadas',
+      id: 4,
+      name: 'Padmavati Temple Gold Kadas (तोडे)',
       category: 'bangles',
       purity: '22K Antique Yellow Gold',
       price: 145000,
@@ -60,7 +74,7 @@ function Products({ onAddToCart }) {
       inStock: true
     },
     {
-      id: 4,
+      id: 5,
       name: 'Zambian Emerald Chandelier Drops',
       category: 'earrings',
       purity: 'Platinum & 18K White Gold',
@@ -74,7 +88,7 @@ function Products({ onAddToCart }) {
       inStock: true
     },
     {
-      id: 5,
+      id: 6,
       name: 'Kashmiri Blue Sapphire Solitaire',
       category: 'rings',
       purity: '18K White Gold • Royal Blue',
@@ -88,7 +102,7 @@ function Products({ onAddToCart }) {
       inStock: true
     },
     {
-      id: 6,
+      id: 7,
       name: 'Mayur Antique Gold Jhumkas',
       category: 'earrings',
       purity: '22K Hallmarked Gold • Pearl Drops',
@@ -102,60 +116,36 @@ function Products({ onAddToCart }) {
       inStock: true
     },
     {
-      id: 7,
-      name: 'Burmese Ruby & Polki Heritage Haar',
-      category: 'necklace',
-      purity: '22K Gold • Pigeon Blood Rubies',
-      price: 245000,
-      originalPrice: 280000,
-      description: 'Multi-strand royal necklace featuring rare pigeon-blood Burmese rubies and uncut Polki.',
-      image: '/images/ruby_diamond_necklace.png',
-      tag: 'MASTERPIECE',
-      rating: 5.0,
-      reviews: 19,
-      inStock: true
-    },
-    {
       id: 8,
-      name: 'South Sea Pearl & Emerald Necklace',
+      name: 'Ratnaprabha Tanmani & Pearl Haar',
       category: 'necklace',
-      purity: '18K Yellow Gold • Natural Pearls',
-      price: 115000,
-      originalPrice: 130000,
-      description: 'Lustrous AAA South Sea white pearls accented with a carved Colombian emerald pendant.',
+      purity: '22K Gold • Natural Basra Pearls',
+      price: 135000,
+      originalPrice: 155000,
+      description: 'Three-strand lustrous pearls adorned with a grand emerald and ruby encrusted Tanmani pendant.',
       image: '/images/pearl_diamond_necklace.png',
-      tag: 'LUXURY PEARL',
-      rating: 4.8,
+      tag: 'TANMANI SAAJ',
+      rating: 5.0,
       reviews: 31,
       inStock: true
     },
     {
       id: 9,
-      name: 'Imperial Maharani Bridal Set',
+      name: 'Imperial Maharani Bridal Suite',
       category: 'necklace',
-      purity: '22K Gold • Complete Bridal Suite',
+      purity: '22K Gold • Complete Bridal Set',
       price: 320000,
       originalPrice: 360000,
       description: 'Grand royal wedding choker with matching jhumkas, maang tikka, and regal cocktail ring.',
       image: '/images/hero_royal_necklace.png',
       tag: 'ROYAL SUITE',
       rating: 5.0,
-      reviews: 15,
+      reviews: 18,
       inStock: true
     }
-  ];
+  ], []);
 
-  useEffect(() => {
-    // Parse URL query parameters if present
-    const params = new URLSearchParams(location.search);
-    const categoryParam = params.get('category');
-    if (categoryParam) {
-      setCategoryFilter(categoryParam);
-    }
-    fetchProducts();
-  }, [location.search]);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       const response = await productService.getAll();
@@ -169,7 +159,16 @@ function Products({ onAddToCart }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [mockProducts]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const categoryParam = params.get('category');
+    if (categoryParam) {
+      setCategoryFilter(categoryParam);
+    }
+    fetchProducts();
+  }, [location.search, fetchProducts]);
 
   const toggleWishlist = (id) => {
     setWishlist(prev => 
@@ -183,13 +182,11 @@ function Products({ onAddToCart }) {
     setTimeout(() => setAddedToast(null), 3000);
   };
 
-  // Filtering Logic
+  // Filtering & Sorting Logic
   const filteredProducts = products.filter(item => {
-    // Category Filter
     if (categoryFilter !== 'all' && item.category !== categoryFilter) {
       return false;
     }
-    // Price Filter
     if (priceFilter === 'under50k' && item.price >= 50000) return false;
     if (priceFilter === '50k-100k' && (item.price < 50000 || item.price > 100000)) return false;
     if (priceFilter === '100k-200k' && (item.price < 100000 || item.price > 200000)) return false;
@@ -223,10 +220,10 @@ function Products({ onAddToCart }) {
       {/* Header Banner */}
       <div className="products-hero-banner">
         <div className="royal-container">
-          <span className="section-subtitle">Haute Joaillerie Atelier</span>
-          <h1 className="banner-title">The Royal Collection</h1>
+          <span className="section-subtitle">HirkaniSaaj Haute Atelier</span>
+          <h1 className="banner-title">The Royal Collection (शाही संग्रह)</h1>
           <p className="banner-desc">
-            Explore 22K Hallmarked Gold, Certified Natural Solitaires & Imperial Heritage Polki masterworks.
+            Explore 22K Hallmarked Gold, Certified Natural Solitaires & Imperial Heritage Kolhapuri Saaj masterworks.
           </p>
         </div>
       </div>
@@ -245,10 +242,10 @@ function Products({ onAddToCart }) {
             <div className="filter-options">
               {[
                 { id: 'all', label: 'All Masterpieces' },
-                { id: 'necklace', label: 'Necklaces & Bridal' },
-                { id: 'rings', label: 'Solitaire Rings' },
-                { id: 'bangles', label: 'Heritage Bangles' },
-                { id: 'earrings', label: 'Precious Earrings' }
+                { id: 'necklace', label: 'Kolhapuri Saaj & Thushi' },
+                { id: 'rings', label: 'Solitaire Diamond Rings' },
+                { id: 'bangles', label: 'Temple Kadas & Tode' },
+                { id: 'earrings', label: 'Precious Earrings & Jhumkas' }
               ].map(cat => (
                 <label key={cat.id} className="royal-radio-label">
                   <input 
@@ -296,7 +293,7 @@ function Products({ onAddToCart }) {
             <ShieldCheck size={28} color="#D4AF37" />
             <div className="seal-text">
               <strong>100% Certified Purity</strong>
-              <p>HUID Hallmarked & Certified Natural Gemstones</p>
+              <p>BIS 916 HUID Hallmarked & IGI Certified Gemstones</p>
             </div>
           </div>
         </aside>
@@ -329,7 +326,7 @@ function Products({ onAddToCart }) {
           {loading ? (
             <div className="catalog-loading">
               <Sparkles size={36} className="gold-text-icon floating-anim" />
-              <p>Unveiling Royal Masterpieces...</p>
+              <p>Unveiling HirkaniSaaj Masterpieces...</p>
             </div>
           ) : filteredProducts.length === 0 ? (
             <div className="no-products-box">
