@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { orderService, paymentService } from '../services/api';
-import { ShieldCheck, CreditCard, CheckCircle, Lock, Truck } from 'lucide-react';
+import { CreditCard, CheckCircle, Lock, ShieldCheck, Truck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Cart.css';
+
+const calculateOrderTotals = (cartItems = []) => {
+  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const tax = subtotal * 0.03;
+  const shipping = subtotal > 10000 ? 0 : 500;
+  const total = subtotal + tax + shipping;
+
+  return { subtotal, tax, shipping, total };
+};
 
 function Checkout({ cartItems = [], user }) {
   const navigate = useNavigate();
@@ -13,28 +22,31 @@ function Checkout({ cartItems = [], user }) {
     city: '',
     state: '',
     zipCode: '',
-    phone: ''
+    phone: '',
   });
   const [paymentMethod, setPaymentMethod] = useState('CARD');
   const [loading, setLoading] = useState(false);
   const [orderSuccess, setOrderSuccess] = useState(null);
   const [error, setError] = useState('');
 
-  const subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const tax = subtotal * 0.03; // 3% Gold GST
-  const shipping = subtotal > 10000 ? 0 : 500;
-  const total = subtotal + tax + shipping;
+  const { subtotal, tax, shipping, total } = useMemo(
+    () => calculateOrderTotals(cartItems),
+    [cartItems]
+  );
 
-  const handleInputChange = (e) => {
-    setAddress({ ...address, [e.target.name]: e.target.value });
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setAddress((previousAddress) => ({ ...previousAddress, [name]: value }));
   };
 
-  const handlePlaceOrder = async (e) => {
-    e.preventDefault();
+  const handlePlaceOrder = async (event) => {
+    event.preventDefault();
+
     if (!user) {
       navigate('/login');
       return;
     }
+
     if (cartItems.length === 0) {
       setError('Your shopping bag is empty.');
       return;
@@ -44,37 +56,26 @@ function Checkout({ cartItems = [], user }) {
     setError('');
 
     try {
-      // 1. Create order
       const orderPayload = {
         userId: user.id || 1,
-        items: cartItems.map(item => ({
+        items: cartItems.map((item) => ({
           productId: item.id,
           quantity: item.quantity,
-          price: item.price
+          price: item.price,
         })),
         totalAmount: total,
-        shippingAddress: `${address.fullName}, ${address.street}, ${address.city}, ${address.state} - ${address.zipCode} (Phone: ${address.phone})`
+        shippingAddress: `${address.fullName}, ${address.street}, ${address.city}, ${address.state} - ${address.zipCode} (Phone: ${address.phone})`,
       };
 
-      let orderRes;
-      try {
-        orderRes = await orderService.create(orderPayload);
-      } catch (err) {
-        orderRes = { data: { id: Math.floor(100000 + Math.random() * 900000), ...orderPayload, status: 'CONFIRMED' } };
-      }
+      const orderRes = await orderService.create(orderPayload);
 
-      // 2. Process payment simulation
       const paymentPayload = {
-        orderId: orderRes.data?.id || Math.floor(100000 + Math.random() * 900000),
+        orderId: orderRes.data?.id,
         amount: total,
-        paymentMethod: paymentMethod
+        paymentMethod,
       };
 
-      try {
-        await paymentService.process(paymentPayload);
-      } catch (err) {
-        // Fallback simulation
-      }
+      await paymentService.process(paymentPayload);
 
       setOrderSuccess(orderRes.data || { id: paymentPayload.orderId, totalAmount: total });
       localStorage.removeItem('cart');

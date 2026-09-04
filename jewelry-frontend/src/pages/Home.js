@@ -3,118 +3,45 @@ import { Link } from 'react-router-dom';
 import { ShieldCheck, Award, Sparkles, RefreshCw, ShoppingBag, ArrowRight, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import './Home.css';
+import { homeCategories, trendingMasterpieces } from '../data/catalog';
 
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.12
-    }
-  }
+      staggerChildren: 0.12,
+    },
+  },
 };
 
 const itemVariants = {
   hidden: { y: 25, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+  visible: { y: 0, opacity: 1, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
 };
 
 function Home() {
   const trustPillars = [
-    { 
-      icon: ShieldCheck, 
-      title: '100% BIS 916 Hallmarked', 
-      description: 'Every gold creation carries 6-digit HUID purity certification guarantee.' 
-    },
-    { 
-      icon: Award, 
-      title: 'IGI Certified Solitaires', 
-      description: 'Handpicked VVS-EF natural diamonds authenticated by world-renowned laboratories.' 
-    },
-    { 
-      icon: Sparkles, 
-      title: 'Royal Karigari', 
-      description: 'Handcrafted by hereditary master artisans preserving 300-year-old royal Maratha techniques.' 
-    },
-    { 
-      icon: RefreshCw, 
-      title: 'Lifetime Buyback Assurance', 
-      description: 'Complete transparency with lifetime exchange and guaranteed transparent valuation.' 
-    },
-  ];
-
-  const categories = [
     {
-      name: 'Kolhapuri Saaj & Chokers',
-      subtitle: 'कोल्हापुरी साज व ठुशी',
-      image: '/images/kundan_choker_necklace.png',
-      link: '/products?category=necklace'
+      icon: ShieldCheck,
+      title: '100% BIS 916 Hallmarked',
+      description: 'Every gold creation carries 6-digit HUID purity certification guarantee.',
     },
     {
-      name: 'Solitaire Diamond Rings',
-      subtitle: '18K Rose Gold & Platinum',
-      image: '/images/diamond_solitaire_ring.png',
-      link: '/products?category=rings'
+      icon: Award,
+      title: 'IGI Certified Solitaires',
+      description: 'Handpicked VVS-EF natural diamonds authenticated by world-renowned laboratories.',
     },
     {
-      name: 'Heritage Temple Bangles',
-      subtitle: 'पाटल्या, तोडे व कडे',
-      image: '/images/heritage_gold_bangles.png',
-      link: '/products?category=bangles'
+      icon: Sparkles,
+      title: 'Royal Karigari',
+      description: 'Handcrafted by hereditary master artisans preserving 300-year-old royal Maratha techniques.',
     },
     {
-      name: 'Precious Gem Earrings',
-      subtitle: 'कुडी, झुमके व बुगडी',
-      image: '/images/emerald_drop_earrings.png',
-      link: '/products?category=earrings'
-    }
-  ];
-
-  const trendingMasterpieces = [
-    {
-      id: 1,
-      name: 'The Royal Kolhapuri Saaj (22K Gold)',
-      purity: '22K Gold • 21 Sacred Pendants',
-      price: 185000,
-      originalPrice: 210000,
-      image: '/images/kundan_choker_necklace.png',
-      tag: 'ROYAL HERITAGE',
-      rating: 5.0,
-      reviews: 48
+      icon: RefreshCw,
+      title: 'Lifetime Buyback Assurance',
+      description: 'Complete transparency with lifetime exchange and guaranteed transparent valuation.',
     },
-    {
-      id: 2,
-      name: 'Eternity Solitaire Diamond Ring',
-      purity: '18K Rose Gold • VVS1 Clarity',
-      price: 95000,
-      originalPrice: 110000,
-      image: '/images/diamond_solitaire_ring.png',
-      tag: 'BESTSELLER',
-      rating: 4.9,
-      reviews: 64
-    },
-    {
-      id: 3,
-      name: 'Padmavati Temple Gold Kadas (तोडे)',
-      purity: '22K Antique Yellow Gold',
-      price: 145000,
-      originalPrice: 160000,
-      image: '/images/heritage_gold_bangles.png',
-      tag: 'HERITAGE',
-      rating: 4.9,
-      reviews: 42
-    },
-    {
-      id: 4,
-      name: 'Zambian Emerald Chandelier Drops',
-      purity: 'Platinum & 18K White Gold',
-      price: 125000,
-      originalPrice: 140000,
-      image: '/images/emerald_drop_earrings.png',
-      tag: 'EXCLUSIVE',
-      rating: 5.0,
-      reviews: 29
-    }
   ];
 
   return (
@@ -237,7 +164,7 @@ function Home() {
           </div>
 
           <div className="categories-grid">
-            {categories.map((cat, idx) => (
+            {homeCategories.map((cat, idx) => (
               <motion.div 
                 key={idx} 
                 className="category-card"
