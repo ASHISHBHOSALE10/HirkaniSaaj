@@ -36,4 +36,16 @@ build/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+.DS_Store.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+.logs/
+out/
+node_modules/
+.gradle/
+*.log
+*.class
