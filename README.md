@@ -1,4 +1,4 @@
-# 💎 HirkaniSaaj (हिरकणी साज) - Royal Jewellery E-Commerce Microservices
+# HirkaniSaaj (हिरकणी साज) - Royal Jewellery E-Commerce Microservices
 
 > **Note for Interviewers & Learners**: For a deep-dive explanation of the microservices architecture, JWT security, and detailed end-to-end workflows, please see the [**PROJECT_DOCUMENTATION.md**](./PROJECT_DOCUMENTATION.md) file.
 
@@ -6,7 +6,7 @@
 
 ---
 
-## 🏗 Architecture Overview
+#Architecture Overview
 
 ```text
 [ React Frontend (3000) ]
@@ -55,7 +55,7 @@
 
 ---
 
-## 🚀 How to Run
+# How to Run
 
 ### Prerequisites
 1. **Java 17+** & **Maven 3.9+**
