@@ -1,4 +1,4 @@
-# 💎 HirkaniSaaj (हिरकणी साज) - Complete Project Guide
+# HirkaniSaaj (हिरकणी साज) - Complete Project Guide
 
 This guide converts the deep-dive technical doc into a practical, actionable runbook for developers: how to install, configure, build, run, and troubleshoot the HirkaniSaaj microservices project locally.
 
